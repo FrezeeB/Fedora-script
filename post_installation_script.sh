@@ -3,6 +3,7 @@
 # Specify flag file
 flag_file="/tmp/resume_script_after_reboot"
 script_path=
+service_file=
 
 # Start
 if [ -e "$flag_file" ]; then
@@ -77,8 +78,6 @@ else
     [Install]
     WantedBy=default.target" | sudo tee "$service_file" > /dev/null
 
-
     #Reboot system
     echo "Rebooting system..."
     sudo reboot
-
