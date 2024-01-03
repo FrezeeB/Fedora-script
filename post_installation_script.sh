@@ -40,8 +40,8 @@ else
     echo "Updating the system..."
     sudo dnf update
 
-    # Install packages
-    echo "Installing packages..."
+    # Install user packages
+    echo "Installing user packages..."
     sudo flatpak install telegram-desktop
     sudo dnf install rstudio
     sudo dnf install pycharm-community
