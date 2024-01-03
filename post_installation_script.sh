@@ -2,8 +2,8 @@
 
 # Specify flag file
 flag_file="/tmp/resume_script_after_reboot"
-script_path=
-service_file=
+script_path="/tmp/post_installation_script.sh"
+service_file="/etc/systemd/system/resume_post_installation_script.service"
 
 # Start
 if [ -e "$flag_file" ]; then
@@ -74,9 +74,12 @@ else
     [Service]
     Type=oneshot
     ExecStart=$script_path
+    User=root
 
     [Install]
     WantedBy=default.target" | sudo tee "$service_file" > /dev/null
+    sudo systemctl daemon-reload
+    sudo systemctl enable resume_post_installation_script.service
 
     #Reboot system
     echo "Rebooting system..."
