@@ -64,7 +64,7 @@ else
     sudo dnf remove -y gnome-boxes
     sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
     sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
-    sudo dnf remove -y *amd*gpu* # Do not remove if you have amd gpu
+    sudo dnf remove -y *amd*gpu # Do not remove if you have amd gpu
     sudo dnf remove -y *libreoffice*
 
     # Make dnf faster
