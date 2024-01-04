@@ -140,3 +140,4 @@ else
     #Reboot system
     echo "Rebooting system..."
     sudo reboot
+fi
