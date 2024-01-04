@@ -35,9 +35,15 @@ if [ -e "$flag_file" ]; then
 
     #Install additional user packages
     echo "Installing user packages..."
-    sudo dnf localinstall /tmp/post_installation_script
     tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C /tmp/post_installation_script
     tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C /tmp/post_installation_script
+    sudo dnf localinstall /tmp/post_installation_script/*rpm
+    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm
+    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm
+
+    #Remove unused bluetooth firmware
+    echo "Deleting unused bluetooth firmware files..."
+        
 
 else
     # Remove gnome useless apps
@@ -81,6 +87,7 @@ else
     gsettings set org.gnome.desktop.interface show-battery-percentage true
     gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
     gsettings set org.gnome.desktop.interface enable-hot-corners false
+    gsettings set org.gnome.settings-daemon.plugins.power power-button-action "interactive"
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
