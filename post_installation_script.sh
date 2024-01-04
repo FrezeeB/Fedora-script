@@ -39,8 +39,8 @@ if [ -e "$flag_file" ]; then
 
     #Install additional user packages
     echo "Installing user packages..."
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C /tmp/post_installation_script
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C /tmp/post_installation_script
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
     sudo dnf localinstall "$destination_directory/*rpm" -y
     sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm" -y
     sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm" -y
