@@ -14,7 +14,7 @@ curl -o "$destination_directory"/post_installation_script.sh -L https://raw.gith
 
 # Specify URLs for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
-libreoffice_url="https://www.libreoffice.org/donate/dl/rpm-x86_64/7.6.4/es/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
+libreoffice_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
 libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz"
 bluetooth_firmware_url="https://github.com/FrezeeB/Fedora-script/raw/bc43c58dabc3dde74adb040134f805c257b6f048/BCM43142A0-0a5c-216d.hcd"
 
