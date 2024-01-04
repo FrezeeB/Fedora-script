@@ -92,10 +92,10 @@ else
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
-    wget -v -O "$destination_directory"/zoom_x86_64.rpm "$zoom_url"
+    wget --timeout=60 --continue -O "$destination_directory"/zoom_x86_64.rpm "$zoom_url"
     echo "Downloading LIbreOffice RPM packages..."
-    wget -v -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz "$libreoffice_url"
-    wget -v -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz "$libreoffice_langpack_url"
+    wget --timeout=60 --continue -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz "$libreoffice_url"
+    wget --timeout=60 --continue -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz "$libreoffice_langpack_url"
 
     #Install additional user packages
     echo "Installing additional user packages..."
