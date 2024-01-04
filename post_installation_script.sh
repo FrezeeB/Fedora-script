@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Specify flag files and directories
+# Specify script directory, files and variables
 echo "Starting script..."
 
 if [ ! -d "/etc/post_installation_script" ]; then # Check if the directory exists
@@ -11,7 +11,7 @@ flag_file="/etc/post_installation_script/resume_script_after_reboot"
 script_file="/etc/post_installation_script/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
 
-# Specify URLs and variables for packages
+# Specify URLs for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
 libreoffice_url="https://www.libreoffice.org/donate/dl/rpm-x86_64/7.6.4/es/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
 libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz"
@@ -29,21 +29,6 @@ if [ -e "$flag_file" ]; then
     echo "Loading kernel modules"
     sudo akmods --force
     sudo dracut --force
-    
-    #Download additional user packages
-    echo "Downloading Zoom RPM package..."
-    wget -O "$destination_directory/zoom_x86_64.rpm" "$zoom_url"
-    echo "Downloading LIbreOffice RPM packages..."
-    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
-    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" "$libreoffice_langpack_url"
-
-    #Install additional user packages
-    echo "Installing user packages..."
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
-    sudo dnf localinstall "$destination_directory/*rpm" -y
-    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm" -y
-    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm" -y
 
     #Remove unused bluetooth firmware
     echo "Deleting unused bluetooth firmware files..."
@@ -104,6 +89,21 @@ else
     sudo dnf install rstudio -y
     sudo dnf install pycharm-community -y
 
+    #Download additional user packages
+    echo "Downloading Zoom RPM package..."
+    wget -O "$destination_directory/zoom_x86_64.rpm" "$zoom_url"
+    echo "Downloading LIbreOffice RPM packages..."
+    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
+    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" "$libreoffice_langpack_url"
+
+    #Install additional user packages
+    echo "Installing user packages..."
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
+    sudo dnf localinstall "$destination_directory/*rpm" -y
+    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm" -y
+    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm" -y
+    
     # Configure Gnome
     echo "Configuring Gnome settings..."
     gsettings set org.gnome.desktop.interface show-battery-percentage true
