@@ -40,9 +40,6 @@ if [ -e "$flag_file" ]; then
 
     #Remove script leftovers and system cleanup
     echo "Running system cleanup..."
-    sudo systemctl disable resume_post_installation_script.service
-    sudo rm -f "$service_file"
-    sudo systemctl daemon-reload
     sudo dnf -y autoremove
     sudo dnf clean all
     sudo rm -rf "$destination_directory"
