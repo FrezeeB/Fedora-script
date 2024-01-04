@@ -140,6 +140,7 @@ User=root
 WantedBy=default.target" | sudo tee "$service_file" > /dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable resume_post_installation_script.service
+    sudo systemctl start resume_post_installation_script.service
 
      # Create a flag file to resume script after reboot
     echo "Setting up script..."
