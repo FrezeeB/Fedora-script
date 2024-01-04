@@ -10,7 +10,7 @@ destination_directory="/etc/post_installation_script"
 flag_file="$destination_directory"/resume_script_after_reboot
 script_file="$destination_directory"/etc/post_installation_script/post_installation_script.sh
 service_file=/etc/systemd/system/resume_post_installation_script.service
-wget --timeout=60 --continue -O "$destination_directory"/post_installation_script.sh https://raw.githubusercontent.com/FrezeeB/Fedora-script/20d3108910476ac67d51d1004ce21e23b86e4a2e/post_installation_script.sh
+wget --timeout=60 --continue -O "$destination_directory" https://raw.githubusercontent.com/FrezeeB/Fedora-script/20d3108910476ac67d51d1004ce21e23b86e4a2e/post_installation_script.sh
 
 # Specify URLs for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
