@@ -101,12 +101,12 @@ else
     echo "Installing additional user packages..."
     tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C "$destination_directory"
     tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C "$destination_directory"
-    sudo cd "$destination_directory" # Change directory to install zoom
-    sudo dnf localinstall *rpm -y # Install zoom
-    sudo cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS
-    sudo dnf localinstall *rpm -y
-    sudo cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS
-    sudo dnf localinstall *rpm -y
+    cd "$destination_directory" # Change directory to install zoom
+    sudo dnf localinstall *.rpm -y # Install zoom
+    cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS # Change directory to install LibreOffice
+    sudo dnf localinstall *.rpm -y # Install LibreOffice
+    cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS # Change directory to install LibreOffice langpack
+    sudo dnf localinstall *.rpm -y # Install LibreOffice langpack
     cd
     
     # Configure Gnome
