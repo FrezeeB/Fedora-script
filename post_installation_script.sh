@@ -27,7 +27,7 @@ if [ -e "$flag_file" ]; then
     sudo dnf install broadcom-wl -y
 
     #Compiling kernel modules and updating boot image
-    echo "Loading kernel modules"
+    echo "Loading kernel modules..."
     sudo akmods --force
     sudo dracut --force
 
