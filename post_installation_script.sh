@@ -37,8 +37,8 @@ if [ -e "$flag_file" ]; then
 
     #Install bluetooth firmware
     echo "Setting up broadcom bluetooth firmware..."
-    wget -O "$destination_directory/BCM43142A0-0a5c-216d.hcd" "$bluetooth_firmware_url"
-    sudo cp "$destination_directory/BCM43142A0-0a5c-216d.hcd" /lib/firmware/brcm
+    wget -O "$destination_directory"/BCM43142A0-0a5c-216d.hcd "$bluetooth_firmware_url"
+    sudo cp "$destination_directory"/BCM43142A0-0a5c-216d.hcd /lib/firmware/brcm
 
     #Remove script leftovers and system cleanup
     echo "Running system cleanup..."
