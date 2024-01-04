@@ -3,12 +3,12 @@
 # Specify flag files and directories
 echo "Starting script..."
 # Check if the directory exists
-if [ ! -d "/tmp/post_installation_script" ]; then
-    mkdir /tmp/post_installation_script
+if [ ! -d "/etc/post_installation_script" ]; then
+    mkdir /etc/post_installation_script
 fi
-destination_directory="/tmp/post_installation_script"
-flag_file="/tmp/post_installation_script/resume_script_after_reboot"
-script_path="/tmp/post_installation_script/post_installation_script.sh"
+destination_directory="/etc/post_installation_script"
+flag_file="/etc/post_installation_script/resume_script_after_reboot"
+script_path="/etc/post_installation_script/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
 
 # Specify URLs and variables for packages
@@ -39,11 +39,11 @@ if [ -e "$flag_file" ]; then
 
     #Install additional user packages
     echo "Installing user packages..."
-    tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C /tmp/post_installation_script
-    tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C /tmp/post_installation_script
-    sudo dnf localinstall /tmp/post_installation_script/*rpm -y
-    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm -y
-    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm -y
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C /tmp/post_installation_script
+    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C /tmp/post_installation_script
+    sudo dnf localinstall "$destination_directory/*rpm" -y
+    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm" -y
+    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm" -y
 
     #Remove unused bluetooth firmware
     echo "Deleting unused bluetooth firmware files..."
@@ -128,15 +128,15 @@ else
     # Create systemd service
     echo "Setting up systemd service..."
     echo "[Unit]
-    Description=Resume script after reboot
+Description=Resume script after reboot
 
-    [Service]
-    Type=oneshot
-    ExecStart=$script_path
-    User=root
+[Service]
+Type=oneshot
+ExecStart="$script_path"
+User=root
 
-    [Install]
-    WantedBy=default.target" | sudo tee "$service_file" > /dev/null
+[Install]
+WantedBy=default.target" | sudo tee "$service_file" > /dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable resume_post_installation_script.service
 
