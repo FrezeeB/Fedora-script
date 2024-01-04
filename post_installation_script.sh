@@ -51,27 +51,32 @@ if [ -e "$flag_file" ]; then
     wget -O "$destination_directory/BCM43142A0-0a5c-216d.hcd" "$bluetooth_firmware_url"
     sudo cp "$destination_directory/BCM43142A0-0a5c-216d.hcd" /lib/firmware/brcm
 
-    #Remove script leftovers
-    echo "Running script cleanup..."
+    #Remove script leftovers and system cleanup
+    echo "Running system cleanup..."
     sudo systemctl disable resume_post_installation_script.service
     sudo rm -f "$service_file"
     sudo systemctl daemon-reload
+    sudo dnf -y autoremove
+    sudo dnf clean all
     sudo rm -rf "$destination_directory"
     sudo reboot
 
 else
     # Remove gnome useless apps
     echo "Removing bloatware..."
-    sudo dnf remove gnome-maps
-    sudo dnf remove rhythmbox
-    sudo dnf remove *pinyin*
-    sudo dnf remove *zhuyin*
-    sudo dnf remove gnome-connections
-    sudo dnf remove gnome-boxes
-    sudo dnf remove *iwl* #Do not remove if you have an intel wireless card
-    sudo dnf remove *nvidia* #Do not remove if you have nvidia gpu
-    sudo dnf remove *amd*gpu* #Do not remove if you have amd gpu
-    sudo dnf remove *libreoffice*
+    sudo dnf remove -y gnome-maps
+    sudo dnf remove -y gnome-tour
+    sudo dnf remove -y gnome-color-manager
+    sudo dnf remove -y rhythmbox
+    sudo dnf remove -y mediawriter
+    sudo dnf remove -y *pinyin*
+    sudo dnf remove -y *zhuyin*
+    sudo dnf remove -y gnome-connections
+    sudo dnf remove -y gnome-boxes
+    sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
+    sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
+    sudo dnf remove -y *amd*gpu* # Do not remove if you have amd gpu
+    sudo dnf remove -y *libreoffice*
 
     # Make dnf faster
     echo "Tweaking dnf config..."
