@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Specify flag files and directories
+echo "Starting script..."
 mkdir /tmp/post_installation_script
 flag_file="/tmp/post_installation_script/resume_script_after_reboot"
 script_path="/tmp/post_installation_script/post_installation_script.sh"
@@ -9,7 +10,8 @@ service_file="/etc/systemd/system/resume_post_installation_script.service"
 # Specify URLs and variables for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
 libreoffice_url="https://www.libreoffice.org/donate/dl/rpm-x86_64/7.6.4/es/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
-destination_directory="/tmp/RPMs"
+libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz"
+destination_directory="/tmp/post_installation_script"
 
 # Start
 if [ -e "$flag_file" ]; then
@@ -24,12 +26,19 @@ if [ -e "$flag_file" ]; then
     sudo akmods --force
     sudo dracut --force
     
-    #Downloading additional user packages
+    #Download additional user packages
     echo "Downloading Zoom RPM package..."
     wget -O "$destination_directory/zoom_x86_64.rpm" "$zoom_url"
     echo "Downloading LIbreOffice RPM packages..."
     wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
-    
+    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" "$libreoffice_langpack_url"
+
+    #Install additional user packages
+    echo "Installing user packages..."
+    sudo dnf localinstall /tmp/post_installation_script
+    tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C /tmp/post_installation_script
+    tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C /tmp/post_installation_script
+
 else
     # Remove gnome useless apps
     echo "Removing bloatware..."
