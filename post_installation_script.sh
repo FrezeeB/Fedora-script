@@ -100,7 +100,7 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo flatpak install telegram-desktop
+    sudo flatpak install app/org.telegram.desktop
     sudo dnf install rstudio -y
     sudo dnf install pycharm-community -y
 
