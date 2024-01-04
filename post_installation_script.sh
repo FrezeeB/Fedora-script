@@ -9,7 +9,7 @@ fi
 destination_directory="/etc/post_installation_script"
 flag_file="$destination_directory"/resume_script_after_reboot
 script_file="$destination_directory"/etc/post_installation_script/post_installation_script.sh
-service_file="$destination_directory"/etc/systemd/system/resume_post_installation_script.service
+service_file=/etc/systemd/system/resume_post_installation_script.service
 curl -o "$destination_directory"/post_installation_script.sh -L https://raw.githubusercontent.com/FrezeeB/Fedora-script/20d3108910476ac67d51d1004ce21e23b86e4a2e/post_installation_script.sh
 
 # Specify URLs for packages
