@@ -20,7 +20,7 @@ if [ -e "$flag_file" ]; then
 
     #Install broadcom driver
     echo "Installing wifi driver..."
-    sudo dnf install broadcom-wl
+    sudo dnf install broadcom-wl -y
 
     #Compiling kernel modules and updating boot image
     echo "Loading kernel modules"
@@ -38,9 +38,9 @@ if [ -e "$flag_file" ]; then
     echo "Installing user packages..."
     tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C /tmp/post_installation_script
     tar -xzf /tmp/post_installation_script/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C /tmp/post_installation_script
-    sudo dnf localinstall /tmp/post_installation_script/*rpm
-    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm
-    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm
+    sudo dnf localinstall /tmp/post_installation_script/*rpm -y
+    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm -y
+    sudo dnf localinstall /tmp/post_installation_script/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm -y
 
     #Remove unused bluetooth firmware
     echo "Deleting unused bluetooth firmware files..."
@@ -89,17 +89,17 @@ else
 
     # Make RPM Fusion repos available for GUIs
     echo "Installing Appstream metadata"
-    sudo dnf groupupdate core
+    sudo dnf groupupdate core -y
 
     # System update
     echo "Updating the system..."
-    sudo dnf update
+    sudo dnf update -y
 
     # Install user packages
     echo "Installing user packages..."
     sudo flatpak install telegram-desktop
-    sudo dnf install rstudio
-    sudo dnf install pycharm-community
+    sudo dnf install rstudio -y
+    sudo dnf install pycharm-community -y
 
     # Configure Gnome
     echo "Configuring Gnome settings..."
@@ -111,7 +111,7 @@ else
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
     sudo dnf swap ffmpeg-free ffmpeg --allowerasing
-    sudo dnf install kmodtool akmods mokutil openssl
+    sudo dnf install kmodtool akmods mokutil openssl -y
 
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
