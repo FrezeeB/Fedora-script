@@ -2,7 +2,10 @@
 
 # Specify flag files and directories
 echo "Starting script..."
-mkdir /tmp/post_installation_script
+# Check if the directory exists
+if [ ! -d "/tmp/post_installation_script" ]; then
+    mkdir /tmp/post_installation_script
+fi
 destination_directory="/tmp/post_installation_script"
 flag_file="/tmp/post_installation_script/resume_script_after_reboot"
 script_path="/tmp/post_installation_script/post_installation_script.sh"
