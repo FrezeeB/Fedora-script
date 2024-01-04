@@ -8,7 +8,6 @@ if [ ! -d "/etc/post_installation_script" ]; then # Check if the directory exist
 fi
 destination_directory="/etc/post_installation_script"
 flag_file="$destination_directory"/resume_script_after_reboot
-service_file=/etc/systemd/system/resume_post_installation_script.service
 wget --timeout=60 --continue -O "$destination_directory" https://raw.githubusercontent.com/FrezeeB/Fedora-script/20d3108910476ac67d51d1004ce21e23b86e4a2e/post_installation_script.sh
 
 # Specify URLs for packages
@@ -125,25 +124,7 @@ else
     sudo kmodgenca -a
     sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
-    # Create systemd service
-    echo "Setting up systemd service..."
-    echo "[Unit]
-Description=Resume script after reboot
-
-[Service]
-Type=simple
-ExecStartPre=/bin/sleep 60
-ExecStart=/etc/post_installation_script/post_installation_script.sh >> "/var/log/post_installation_script.log" 2>&1
-User=root
-Group=root
-
-[Install]
-WantedBy=default.target" | sudo tee "$service_file" > /dev/null
-    sudo systemctl daemon-reload
-    sudo systemctl enable resume_post_installation_script.service
-    sudo systemctl start resume_post_installation_script.service
-
-     # Create a flag file to resume script after reboot
+    # Create a flag file to resume script after reboot
     echo "Setting up script..."
     touch "$flag_file"
 
