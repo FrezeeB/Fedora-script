@@ -1,16 +1,15 @@
 #!/bin/bash
 
-# Specify flag files
+# Specify flag files and directories
 flag_file="/tmp/resume_script_after_reboot"
 script_path="/tmp/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
+mkdir /tmp/RPMs
 
 # Specify URLs and variables for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
-zoom_destination_directory="/tmp"
 libreoffice_url="https://www.libreoffice.org/donate/dl/rpm-x86_64/7.6.4/es/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
-libreoffice_destination_directory="/tmp"
-
+destination_directory="/tmp/RPMs"
 
 # Start
 if [ -e "$flag_file" ]; then
@@ -27,9 +26,9 @@ if [ -e "$flag_file" ]; then
     
     #Downloading additional user packages
     echo "Downloading Zoom RPM package..."
-    wget -O "$zoom_destination_directory/zoom_x86_64.rpm" "$zoom_url"
+    wget -O "$destination_directory/zoom_x86_64.rpm" "$zoom_url"
     echo "Downloading LIbreOffice RPM packages..."
-    wget -O "$libreoffice_destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
+    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
     
 else
     # Remove gnome useless apps
