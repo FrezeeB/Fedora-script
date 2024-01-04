@@ -3,6 +3,7 @@
 # Specify flag files and directories
 echo "Starting script..."
 mkdir /tmp/post_installation_script
+destination_directory="/tmp/post_installation_script"
 flag_file="/tmp/post_installation_script/resume_script_after_reboot"
 script_path="/tmp/post_installation_script/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
@@ -12,7 +13,6 @@ zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
 libreoffice_url="https://www.libreoffice.org/donate/dl/rpm-x86_64/7.6.4/es/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
 libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz"
 bluetooth_firmware_url="https://github.com/FrezeeB/Fedora-script/raw/bc43c58dabc3dde74adb040134f805c257b6f048/BCM43142A0-0a5c-216d.hcd"
-destination_directory="/tmp/post_installation_script"
 
 # Start
 if [ -e "$flag_file" ]; then
@@ -50,6 +50,14 @@ if [ -e "$flag_file" ]; then
     echo "Setting up broadcom bluetooth firmware..."
     wget -O "$destination_directory/BCM43142A0-0a5c-216d.hcd" "$bluetooth_firmware_url"
     sudo cp "$destination_directory/BCM43142A0-0a5c-216d.hcd" /lib/firmware/brcm
+
+    #Remove script leftovers
+    echo "Running script cleanup..."
+    sudo systemctl disable resume_post_installation_script.service
+    sudo rm -f "$service_file"
+    sudo systemctl daemon-reload
+    sudo rm -rf "$destination_directory"
+    sudo reboot
 
 else
     # Remove gnome useless apps
