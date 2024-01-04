@@ -2,13 +2,13 @@
 
 # Specify flag files and directories
 echo "Starting script..."
-# Check if the directory exists
-if [ ! -d "/etc/post_installation_script" ]; then
+
+if [ ! -d "/etc/post_installation_script" ]; then # Check if the directory exists
     mkdir /etc/post_installation_script
 fi
 destination_directory="/etc/post_installation_script"
 flag_file="/etc/post_installation_script/resume_script_after_reboot"
-script_path="/etc/post_installation_script/post_installation_script.sh"
+script_file="/etc/post_installation_script/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
 
 # Specify URLs and variables for packages
@@ -132,7 +132,7 @@ Description=Resume script after reboot
 
 [Service]
 Type=oneshot
-ExecStart="$script_path"
+ExecStart="$script_file"
 User=root
 
 [Install]
