@@ -101,9 +101,13 @@ else
     echo "Installing additional user packages..."
     tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
     tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
-    sudo dnf localinstall "$destination_directory/*rpm" -y
-    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS/*rpm" -y
-    sudo dnf localinstall "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS/*rpm" -y
+    sudo cd "$destination_directory" # Change directory to install zoom
+    sudo dnf localinstall *rpm -y # Install zoom
+    sudo cd "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS"
+    sudo dnf localinstall *rpm -y
+    sudo cd "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS"
+    sudo dnf localinstall *rpm -y
+    cd
     
     # Configure Gnome
     echo "Configuring Gnome settings..."
@@ -122,17 +126,13 @@ else
     sudo kmodgenca -a
     sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
-    # Create a flag file to resume script after reboot
-    echo "Setting up script..."
-    touch "$flag_file"
-
     # Create systemd service
     echo "Setting up systemd service..."
     echo "[Unit]
 Description=Resume script after reboot
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart="$script_file"
 User=root
 
@@ -140,6 +140,10 @@ User=root
 WantedBy=default.target" | sudo tee "$service_file" > /dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable resume_post_installation_script.service
+
+     # Create a flag file to resume script after reboot
+    echo "Setting up script..."
+    touch "$flag_file"
 
     #Reboot system
     echo "Rebooting system..."
