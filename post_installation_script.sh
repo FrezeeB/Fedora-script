@@ -92,20 +92,20 @@ else
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
-    wget -O "$destination_directory/zoom_x86_64.rpm" "$zoom_url"
+    wget -O "$destination_directory"/zoom_x86_64.rpm "$zoom_url"
     echo "Downloading LIbreOffice RPM packages..."
-    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" "$libreoffice_url"
-    wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" "$libreoffice_langpack_url"
+    wget -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz "$libreoffice_url"
+    wget -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz "$libreoffice_langpack_url"
 
     #Install additional user packages
     echo "Installing additional user packages..."
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
-    tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
+    tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C "$destination_directory"
+    tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C "$destination_directory"
     sudo cd "$destination_directory" # Change directory to install zoom
     sudo dnf localinstall *rpm -y # Install zoom
-    sudo cd "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS"
+    sudo cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS
     sudo dnf localinstall *rpm -y
-    sudo cd "$destination_directory/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS"
+    sudo cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS
     sudo dnf localinstall *rpm -y
     cd
     
