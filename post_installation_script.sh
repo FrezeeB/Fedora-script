@@ -43,7 +43,7 @@ if [ -e "$flag_file" ]; then
 
     #Remove unused bluetooth firmware
     echo "Deleting unused bluetooth firmware files..."
-        
+    sudo rm -f /lib/firmware/brcm/*xz
 
 else
     # Remove gnome useless apps
