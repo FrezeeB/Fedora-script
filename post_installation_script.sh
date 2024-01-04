@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Specify flag files and directories
-flag_file="/tmp/resume_script_after_reboot"
-script_path="/tmp/post_installation_script.sh"
+mkdir /tmp/post_installation_script
+flag_file="/tmp/post_installation_script/resume_script_after_reboot"
+script_path="/tmp/post_installation_script/post_installation_script.sh"
 service_file="/etc/systemd/system/resume_post_installation_script.service"
-mkdir /tmp/RPMs
 
 # Specify URLs and variables for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
