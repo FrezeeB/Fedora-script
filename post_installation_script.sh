@@ -148,5 +148,6 @@ WantedBy=default.target" | sudo tee "$service_file" > /dev/null
 
     #Reboot system
     echo "Rebooting system..."
+    sudo reboot
     
 fi
