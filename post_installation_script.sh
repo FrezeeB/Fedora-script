@@ -98,7 +98,7 @@ else
     wget -O "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" "$libreoffice_langpack_url"
 
     #Install additional user packages
-    echo "Installing user packages..."
+    echo "Installing additional user packages..."
     tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz" -C "$destination_directory"
     tar -xzf "$destination_directory/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" -C "$destination_directory"
     sudo dnf localinstall "$destination_directory/*rpm" -y
