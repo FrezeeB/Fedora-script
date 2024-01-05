@@ -104,12 +104,14 @@ else
     sudo dnf localinstall *.rpm -y # Install LibreOffice langpack
     cd
     
-    # Configure Gnome
-    echo "Configuring Gnome settings..."
-    gsettings set org.gnome.desktop.interface show-battery-percentage true
-    gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-    gsettings set org.gnome.desktop.interface enable-hot-corners false
-    gsettings set org.gnome.settings-daemon.plugins.power power-button-action "interactive"
+    # Configure Gnome settings for the user
+    user_name=$(who | awk '$0 ~ /(:[0-9]\.0)/ {print $1}' | head -n 1) # Get the username of the user who owns the current display
+    echo "Configuring Gnome settings for user $user_name..."
+    sudo -u $user_name gsettings set org.gnome.desktop.interface show-battery-percentage true
+    sudo -u $user_name gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+    sudo -u $user_name gsettings set org.gnome.desktop.interface enable-hot-corners false
+    sudo -u $user_name gsettings set org.gnome.settings-daemon.plugins.power power-button-action "interactive"
+
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
