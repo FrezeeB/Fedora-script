@@ -53,6 +53,7 @@ else
     sudo dnf remove -y gnome-color-manager
     sudo dnf remove -y rhythmbox
     sudo dnf remove -y mediawriter
+    sudo dnf remove -y simple-scan
     sudo dnf remove -y *pinyin*
     sudo dnf remove -y *zhuyin*
     sudo dnf remove -y gnome-connections
