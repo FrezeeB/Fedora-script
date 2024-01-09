@@ -105,15 +105,6 @@ else
     cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS # Change directory to install LibreOffice langpack
     sudo dnf localinstall *.rpm -y # Install LibreOffice langpack
     cd
-    
-    # Configure Gnome settings for the user
-    user_name=$(who | awk '$0 ~ /(:[0-9]\.0)/ {print $1}' | head -n 1) # Get the username of the user who owns the current display
-    echo "Configuring Gnome settings for user $user_name..."
-    sudo -u $user_name gsettings set org.gnome.desktop.interface show-battery-percentage true
-    sudo -u $user_name gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-    sudo -u $user_name gsettings set org.gnome.desktop.interface enable-hot-corners false
-    sudo -u $user_name gsettings set org.gnome.settings-daemon.plugins.power power-button-action "interactive"
-
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
