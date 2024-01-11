@@ -84,7 +84,7 @@ else
     # Install user packages
     echo "Installing user packages..."
     sudo flatpak install app/org.telegram.desktop
-    sudo dnf install rstudio -y
+    sudo dnf install rstudio-desktop -y
     sudo dnf install pycharm-community -y
 
     #Download additional user packages
