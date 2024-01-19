@@ -109,6 +109,10 @@ else
     sudo dnf localinstall *.rpm -y # Install LibreOffice langpack
     cd
 
+    # Configure other Gnome settings
+    sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
+    sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
     sudo dnf swap ffmpeg-free ffmpeg --allowerasing
