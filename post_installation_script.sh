@@ -107,7 +107,7 @@ else
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
-    sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+    sudo dnf install ffmpeg --allowerasing -y
     sudo dnf install kmodtool akmods mokutil openssl -y
 
     # Create sign key and password to enroll in mokutil
