@@ -6,3 +6,6 @@ This is a script to tweak Fedora after installation. This script will:
 4. Install aditional user packages
 
 After running the script your device will reboot, make sure to run it **once again** to finish pending tasks.
+
+To execute this script, open a terminal and run:
+sudo bash -c"$(curl -fsSL https://raw.githubusercontent.com/FrezeeB/Fedora-script/main/post_installation_script.sh)"
