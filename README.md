@@ -1,6 +1,6 @@
-This is a script to tweak Fedora after installation. This script will:
+This is a script to tweak Fedora **after a fresh installation**. This script will:
 
-1. Remove **some** preinstalled Gnome apps
+1. Remove some preinstalled Gnome apps
 2. Replace default Libreoffice with flatpak version
 3. Import key to sign broadcom drivers for secure boot
 4. Install aditional user packages
