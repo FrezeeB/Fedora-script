@@ -9,12 +9,9 @@ fi
 destination_directory="/etc/post_installation_script"
 flag_file="$destination_directory"/resume_script_after_reboot
 username=$(who | head -n 1 | awk '{print $1}')
-wget --timeout=60 --continue -O "$destination_directory" https://raw.githubusercontent.com/FrezeeB/Fedora-script/20d3108910476ac67d51d1004ce21e23b86e4a2e/post_installation_script.sh
 
 # Specify URLs for packages
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
-libreoffice_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
-libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" # This is Spanish langpack, replace accordingly to your needs
 # Insert other packages if you need
 
 # Start
@@ -23,9 +20,9 @@ if [ -e "$flag_file" ]; then
 
     #Install drivers
     echo "Installing drivers..."
-    sudo dnf install broadcom-wl -y
-    sudo dnf install broadcom-bt-firmware -y
-    sudo dnf install intel-media-driver
+    sudo dnf install -y broadcom-wl
+    sudo dnf install -y broadcom-bt-firmware
+    sudo dnf install -y intel-media-driver
 
     #Compiling kernel modules and updating boot image
     echo "Loading kernel modules..."
@@ -34,7 +31,7 @@ if [ -e "$flag_file" ]; then
 
     #Remove script leftovers and system cleanup
     echo "Running system cleanup..."
-    sudo dnf -y autoremove
+    sudo dnf autoremove -y
     sudo dnf clean all
     sudo rm -rf "$destination_directory"
     sudo reboot
@@ -54,6 +51,7 @@ else
     sudo dnf remove -y gnome-boxes
     sudo dnf remove -y gnome-font-viewer
     sudo dnf remove -y *libreoffice*
+    sudo dnf remove -y malcontent-control
     sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
     sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
     sudo dnf remove -y *amd*gpu # Do not remove if you have amd gpu
@@ -79,36 +77,31 @@ else
     # Install user packages
     echo "Installing user packages..."
     sudo flatpak install app/org.telegram.desktop
-    sudo dnf install rstudio-desktop -y
-    sudo dnf install pycharm-community -y
+    sudo flatpak install app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks, replace accordingly to your needs
+    sudo flatpak update
+    sudo dnf install -y rstudio-desktop
+    sudo dnf install -y pycharm-community
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
     wget --timeout=60 --continue -O "$destination_directory"/zoom_x86_64.rpm "$zoom_url"
-    echo "Downloading LIbreOffice RPM packages..."
-    wget --timeout=60 --continue -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz "$libreoffice_url"
-    wget --timeout=60 --continue -O "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz "$libreoffice_langpack_url"
 
     #Install additional user packages
     echo "Installing additional user packages..."
-    tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz -C "$destination_directory"
-    tar -xzf "$destination_directory"/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz -C "$destination_directory"
     cd "$destination_directory" # Change directory to install zoom
-    sudo dnf localinstall *.rpm -y # Install zoom
-    cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm/RPMS # Change directory to install LibreOffice
-    sudo dnf localinstall *.rpm -y # Install LibreOffice
-    cd "$destination_directory"/LibreOffice_7.6.4.1_Linux_x86-64_rpm_langpack_es/RPMS # Change directory to install LibreOffice langpack
-    sudo dnf localinstall *.rpm -y # Install LibreOffice langpack
+    sudo dnf localinstall -y *.rpm # Install zoom
     cd
 
     # Configure other Gnome settings
     sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
     sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+    sudo -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
-    sudo dnf install ffmpeg --allowerasing -y
-    sudo dnf install kmodtool akmods mokutil openssl -y
+    sudo dnf install -y ffmpeg --allowerasing
+    sudo dnf install -y kmodtool akmods mokutil openssl
 
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
