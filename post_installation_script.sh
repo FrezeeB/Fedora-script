@@ -15,31 +15,22 @@ wget --timeout=60 --continue -O "$destination_directory" https://raw.githubuserc
 zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
 libreoffice_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm.tar.gz"
 libreoffice_langpack_url="https://download.documentfoundation.org/libreoffice/stable/7.6.4/rpm/x86_64/LibreOffice_7.6.4_Linux_x86-64_rpm_langpack_es.tar.gz" # This is Spanish langpack, replace accordingly to your needs
-bluetooth_firmware_url="https://github.com/FrezeeB/Fedora-script/raw/bc43c58dabc3dde74adb040134f805c257b6f048/BCM43142A0-0a5c-216d.hcd"
 # Insert other packages if you need
 
 # Start
 if [ -e "$flag_file" ]; then
     echo "Resuming script after reboot..."
 
-    #Install broadcom driver
-    echo "Installing wifi driver..."
+    #Install drivers
+    echo "Installing drivers..."
     sudo dnf install broadcom-wl -y
     sudo dnf install broadcom-bt-firmware -y
+    sudo dnf install intel-media-driver
 
     #Compiling kernel modules and updating boot image
     echo "Loading kernel modules..."
     sudo akmods --force
     sudo dracut --force
-
-    #Remove unused bluetooth firmware
-    echo "Deleting unused broadcom bluetooth firmware files..."
-    sudo rm -f /lib/firmware/brcm/*xz
-
-    #Install bluetooth firmware
-    echo "Setting up broadcom bluetooth firmware..."
-    wget -O "$destination_directory"/BCM43142A0-0a5c-216d.hcd "$bluetooth_firmware_url"
-    sudo cp "$destination_directory"/BCM43142A0-0a5c-216d.hcd /lib/firmware/brcm
 
     #Remove script leftovers and system cleanup
     echo "Running system cleanup..."
