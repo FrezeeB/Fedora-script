@@ -77,12 +77,12 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo flatpak install flathub app/org.telegram.desktop
-    sudo flatpak install flathub app/org.libreoffice.LibreOffice/x86_64/stable
-    sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks, replace accordingly to your needs
+    flatpak install flathub app/org.telegram.desktop
+    flatpak install flathub app/org.libreoffice.LibreOffice/x86_64/stable
+    flatpak install flathub org.gimp.GIMP
+    flatpak install flathub com.jetbrains.PyCharm-Community
+    sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo flatpak update
-    sudo dnf install -y rstudio-desktop
-    sudo dnf install -y pycharm-community
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
