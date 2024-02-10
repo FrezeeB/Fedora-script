@@ -69,7 +69,7 @@ else
 
     # Make RPM Fusion repos available for GUIs
     echo "Installing Appstream metadata..."
-    sudo dnf groupupdate core -y
+    sudo dnf groupupdate -y core
 
     # System update
     echo "Updating the system..."
@@ -77,12 +77,12 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    flatpak install flathub app/org.telegram.desktop
-    flatpak install flathub app/org.libreoffice.LibreOffice/x86_64/stable
-    flatpak install flathub org.gimp.GIMP
-    flatpak install flathub com.jetbrains.PyCharm-Community
+    flatpak install -y flathub app/org.telegram.desktop
+    flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
+    flatpak install -y flathub org.gimp.GIMP
+    flatpak install -y flathub com.jetbrains.PyCharm-Community
     sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
-    sudo flatpak update
+    sudo flatpak update -y
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
