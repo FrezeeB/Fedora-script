@@ -77,8 +77,8 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo flatpak install app/org.telegram.desktop
-    sudo flatpak install app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo flatpak install flathub app/org.telegram.desktop
+    sudo flatpak install flathub app/org.libreoffice.LibreOffice/x86_64/stable
     sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks, replace accordingly to your needs
     sudo flatpak update
     sudo dnf install -y rstudio-desktop
