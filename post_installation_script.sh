@@ -78,7 +78,7 @@ else
     # Install user packages
     echo "Installing user packages..."
     flatpak install -y app/org.telegram.desktop
-    flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
+    flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
     flatpak install -y org.gimp.GIMP
     flatpak install -y com.jetbrains.PyCharm-Community
     sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
