@@ -94,10 +94,12 @@ else
     sudo dnf localinstall -y *.rpm # Install zoom
     cd
 
-    # Configure other Gnome settings
+    # Configure other settings
     sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
     sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
     sudo -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
+    systemctl start sshd
+    systemctl enable sshd
 
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
