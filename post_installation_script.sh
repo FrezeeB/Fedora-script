@@ -98,6 +98,7 @@ else
     sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
     sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
     sudo -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
+    sudo -u "$username" gsettings set org.gnome.desktop.interface enable-hot-corners false
     systemctl start sshd
     systemctl enable sshd
 
