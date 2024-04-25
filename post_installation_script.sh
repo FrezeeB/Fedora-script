@@ -48,15 +48,13 @@ else
     sudo dnf remove -y *pinyin*
     sudo dnf remove -y *zhuyin*
     sudo dnf remove -y gnome-connections
-    sudo dnf remove -y gnome-boxes
-    sudo dnf remove -y gnome-font-viewer
     sudo dnf remove -y *libreoffice*
     sudo dnf remove -y malcontent-control
     sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
     sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
     sudo dnf remove -y *amd*gpu # Do not remove if you have amd gpu
-    sudo dnf remove -y *virtualbox* # Do not remove if you have amd gpu
-
+    sudo dnf remove -y *virtualbox*
+    
     # Make dnf faster
     echo "Tweaking dnf config..."
     echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf > /dev/null
@@ -83,6 +81,7 @@ else
     flatpak install -y org.gimp.GIMP
     flatpak install -y org.inkscape.Inkscape
     flatpak install -y com.jetbrains.PyCharm-Community
+    flatpak install -y flathub com.anydesk.Anydesk
     sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo flatpak update -y
 
