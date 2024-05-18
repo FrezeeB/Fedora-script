@@ -76,14 +76,14 @@ else
     # Install user packages
     echo "Installing user packages..."
     sudo dnf install -y rstudio-desktop
-    flatpak install -y app/org.telegram.desktop
-    flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
-    flatpak install -y org.gimp.GIMP
-    flatpak install -y org.inkscape.Inkscape
-    flatpak install -y com.jetbrains.PyCharm-Community
-    flatpak install -y com.anydesk.Anydesk
-    sudo flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
-    sudo flatpak update -y
+    sudo -u "$username" flatpak install -y app/org.telegram.desktop
+    sudo -u "$username" flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo -u "$username" flatpak install -y org.gimp.GIMP
+    sudo -u "$username" flatpak install -y org.inkscape.Inkscape
+    sudo -u "$username" flatpak install -y com.jetbrains.PyCharm-Community
+    sudo -u "$username" flatpak install -y com.anydesk.Anydesk
+    sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
+    sudo -u "$username" flatpak update -y
 
     #Download additional user packages
     echo "Downloading Zoom RPM package..."
