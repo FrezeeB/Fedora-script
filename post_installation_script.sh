@@ -20,7 +20,6 @@ if [ -e "$flag_file" ]; then
 
     #Install drivers
     echo "Installing drivers..."
-    sudo dnf install -y broadcom-wl
     sudo dnf install -y broadcom-bt-firmware
     sudo dnf install -y intel-media-driver
 
@@ -75,13 +74,11 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo dnf install -y rstudio-desktop
     sudo -u "$username" flatpak install -y app/org.telegram.desktop
     sudo -u "$username" flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
     sudo -u "$username" flatpak install -y org.gimp.GIMP
     sudo -u "$username" flatpak install -y org.inkscape.Inkscape
     sudo -u "$username" flatpak install -y com.jetbrains.PyCharm-Community
-    sudo -u "$username" flatpak install -y com.anydesk.Anydesk
     sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
 
