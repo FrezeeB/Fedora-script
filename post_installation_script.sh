@@ -76,9 +76,6 @@ else
     echo "Installing user packages..."
     sudo -u "$username" flatpak install -y app/org.telegram.desktop
     sudo -u "$username" flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
-    sudo -u "$username" flatpak install -y org.gimp.GIMP
-    sudo -u "$username" flatpak install -y org.inkscape.Inkscape
-    sudo -u "$username" flatpak install -y com.jetbrains.PyCharm-Community
     sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
 
@@ -103,7 +100,7 @@ else
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
     sudo dnf install -y ffmpeg --allowerasing
-    sudo dnf install -y kmodtool akmods mokutil openssl
+    sudo dnf install -y kmodtool mokutil openssl
 
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
