@@ -20,8 +20,8 @@ if [ -e "$flag_file" ]; then
 
     #Install drivers
     echo "Installing drivers..."
-    sudo dnf install -y broadcom-bt-firmware
-    sudo dnf install -y intel-media-driver
+    sudo dnf install -y libva-intel-driver
+    #Add your kernel modules
 
     #Compiling kernel modules and updating boot image
     echo "Loading kernel modules..."
@@ -38,20 +38,20 @@ if [ -e "$flag_file" ]; then
 else
     # Remove gnome useless apps
     echo "Removing bloatware..."
-    sudo dnf remove -y gnome-maps
-    sudo dnf remove -y gnome-tour
-    sudo dnf remove -y gnome-color-manager
-    sudo dnf remove -y rhythmbox
-    sudo dnf remove -y mediawriter
-    sudo dnf remove -y simple-scan
-    sudo dnf remove -y *pinyin*
-    sudo dnf remove -y *zhuyin*
-    sudo dnf remove -y gnome-connections
-    sudo dnf remove -y *libreoffice*
-    sudo dnf remove -y malcontent-control
+    sudo dnf remove -y akregator
+    sudo dnf remove -y elisa
+    sudo dnf remove -y kmahjongg
+    sudo dnf remove -y kmail
+    sudo dnf remove -y kmines
+    sudo dnf remove -y kmouth
+    sudo dnf remove -y kolourpaint
+    sudo dnf remove -y kpatience
+    sudo dnf remove -y ktnef
+    sudo dnf remove -y kwalletmanager
+    sudo dnf remove -y neochat
+    sudo dnf remove -y pim-sieve-editor
     sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
     sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
-    sudo dnf remove -y *amd*gpu # Do not remove if you have amd gpu
     sudo dnf remove -y *virtualbox*
     
     # Make dnf faster
@@ -62,7 +62,6 @@ else
     # Enable RPM Fusion repos
     echo "Enabling RPM Fusion in your system..."
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y rpmfusion-nonfree-release-tainted
 
     # Make RPM Fusion repos available for GUIs
     echo "Installing Appstream metadata..."
@@ -74,8 +73,8 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo -u "$username" flatpak install -y app/org.telegram.desktop
-    sudo -u "$username" flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo -u "$username" flatpak install -y flathub app/org.telegram.desktop
+    sudo -u "$username" flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
     sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
 
@@ -90,20 +89,21 @@ else
     cd
 
     # Configure other settings
-    sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
-    sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-    sudo -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
-    sudo -u "$username" gsettings set org.gnome.desktop.interface enable-hot-corners false
     systemctl start sshd
     systemctl enable sshd
 
     # Install proprietary stuff and additional packages
-    echo "Installing additional packages..."
-    sudo dnf install -y ffmpeg --allowerasing
-    sudo dnf install -y kmodtool mokutil openssl
-
+    echo "Setting multimedia and hardware acceleration..."
+    sudo dnf config-manager --set-enabled fedora-cisco-openh264
+    sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
+    sudo dnf install -y --allowerasing ffmpeg ffmpeg-libs libva libva-utils
+    sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+    sudo dnf swap -y --allowerasing mesa-va-drivers mesa-va-drivers-freeworld
+    sudo dnf swap -y --allowerasing mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+    
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
+    sudo dnf install -y kmodtool mokutil openssl
     sudo kmodgenca -a
     sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
