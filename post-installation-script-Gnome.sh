@@ -74,8 +74,8 @@ else
 
     # Install user packages
     echo "Installing user packages..."
-    sudo -u "$username" flatpak install -y app/org.telegram.desktop
-    sudo -u "$username" flatpak install -y app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo -u "$username" flatpak install -y flathub app/org.telegram.desktop
+    sudo -u "$username" flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
     sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
 
