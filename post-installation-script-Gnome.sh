@@ -20,7 +20,6 @@ if [ -e "$flag_file" ]; then
 
     #Install drivers
     echo "Installing drivers..."
-    sudo dnf install -y broadcom-bt-firmware
     sudo dnf install -y intel-media-driver
 
     #Compiling kernel modules and updating boot image
@@ -62,7 +61,6 @@ else
     # Enable RPM Fusion repos
     echo "Enabling RPM Fusion in your system..."
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y rpmfusion-nonfree-release-tainted
 
     # Make RPM Fusion repos available for GUIs
     echo "Installing Appstream metadata..."
@@ -100,7 +98,7 @@ else
     # Install proprietary stuff and additional packages
     echo "Installing additional packages..."
     sudo dnf install -y ffmpeg --allowerasing
-    sudo dnf install -y kmodtool mokutil openssl
+    sudo dnf install -y kmodtool mokutil openssl akmods
 
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
