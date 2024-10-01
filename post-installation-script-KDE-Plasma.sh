@@ -104,7 +104,7 @@ else
     
     # Create sign key and password to enroll in mokutil
     echo "Setting up signing key for drivers..."
-    sudo dnf install -y kmodtool mokutil openssl
+    sudo dnf install -y kmodtool mokutil openssl akmods
     sudo kmodgenca -a
     sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
