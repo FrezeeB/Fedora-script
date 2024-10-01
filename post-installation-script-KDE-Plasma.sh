@@ -43,6 +43,7 @@ else
     sudo dnf remove -y kmahjongg
     sudo dnf remove -y kmail
     sudo dnf remove -y kmines
+    sudo dnf remove -y kmousetool
     sudo dnf remove -y kmouth
     sudo dnf remove -y kolourpaint
     sudo dnf remove -y kpatience
