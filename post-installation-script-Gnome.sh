@@ -10,10 +10,6 @@ destination_directory="/etc/post_installation_script"
 flag_file="$destination_directory"/resume_script_after_reboot
 username=$(who | head -n 1 | awk '{print $1}')
 
-# Specify URLs for packages
-zoom_url="https://zoom.us/client/latest/zoom_x86_64.rpm"
-# Insert other packages if you need
-
 # Start
 if [ -e "$flag_file" ]; then
     echo "Resuming script after reboot..."
