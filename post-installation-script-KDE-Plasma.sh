@@ -48,19 +48,7 @@ else
     sudo dnf remove -y neochat
     sudo dnf remove -y pim-sieve-editor
     sudo dnf remove -y *iwl* # Do not remove if you have an intel wireless card
-    sudo dnf remove -y *nvidia* # Do not remove if you have nvidia gpu
     sudo dnf remove -y *virtualbox*
-    sudo dnf remove -y gnome-maps
-    sudo dnf remove -y gnome-tour
-    sudo dnf remove -y gnome-color-manager
-    sudo dnf remove -y rhythmbox
-    sudo dnf remove -y mediawriter
-    sudo dnf remove -y simple-scan
-    sudo dnf remove -y *pinyin*
-    sudo dnf remove -y *zhuyin*
-    sudo dnf remove -y gnome-connections
-    sudo dnf remove -y *libreoffice*
-    sudo dnf remove -y malcontent-control
     
     # Make dnf faster
     echo "Tweaking dnf config..."
@@ -82,9 +70,9 @@ else
     # Install user packages
     echo "Installing user packages..."
     sudo -u "$username" flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak install -y flathub app/org.telegram.desktop
     sudo -u "$username" flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
+    sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
 
     # Configure other settings
