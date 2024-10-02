@@ -72,20 +72,10 @@ else
 
     # Install user packages
     echo "Installing user packages..."
+    sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak install -y flathub app/org.telegram.desktop
     sudo -u "$username" flatpak install -y flathub app/org.libreoffice.LibreOffice/x86_64/stable
-    sudo -u "$username" flatpak config languages --set "en;es" # This installs English and Spanish langpacks por flatpaks. Replace accordingly to your needs
     sudo -u "$username" flatpak update -y
-
-    #Download additional user packages
-    echo "Downloading Zoom RPM package..."
-    wget --timeout=60 --continue -O "$destination_directory"/zoom_x86_64.rpm "$zoom_url"
-
-    #Install additional user packages
-    echo "Installing additional user packages..."
-    cd "$destination_directory" # Change directory to install zoom
-    sudo dnf localinstall -y *.rpm # Install zoom
-    cd
 
     # Configure other settings
     sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
