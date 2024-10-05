@@ -75,9 +75,9 @@ else
     sudo -u "$username" flatpak update -y
 
     # Configure other settings
-    sudo -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
-    sudo -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-    sudo -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
+    sudo -E -u "$username" gsettings set org.gnome.desktop.interface show-battery-percentage true
+    sudo -E -u "$username" gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+    sudo -E -u "$username" gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
     systemctl start sshd
     systemctl enable sshd
 
