@@ -32,7 +32,7 @@ if [ -e "$flag_file" ]; then
     sudo reboot
 
 else
-    # Remove gnome useless apps
+    # Remove kde apps
     echo "Removing bloatware..."
     sudo dnf remove -y akregator
     sudo dnf remove -y elisa
